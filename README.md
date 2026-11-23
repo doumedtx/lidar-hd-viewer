@@ -6,6 +6,11 @@ open data **LiDAR HD de l'IGN** (France), mais lit n'importe quel `.las` / `.laz
 Tout se passe **dans le navigateur** : aucun serveur, aucun compte, vos fichiers
 ne quittent pas votre machine.
 
+_Application en ligne : https://doumedtx.github.io/lidar-hd-viewer/ (déployée
+automatiquement à chaque push sur `main`)._
+
+## Fonctionnalités (v1)
+
 ## Fonctionnalités (v1)
 
 - Import par glisser-déposer ou bouton (`.las`, `.laz`, `.copc.laz` — LAS 1.0 à 1.4 inclus)
