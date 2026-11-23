@@ -1,0 +1,23 @@
+{
+  "name": "lidar-hd-viewer",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test:parse": "node scripts/smoke-parse.mjs examples/demo-50k-points.laz"
+  },
+  "dependencies": {
+    "@loaders.gl/core": "^4.3.6",
+    "@loaders.gl/las": "^4.3.6",
+    "three": "^0.181.0"
+  },
+  "devDependencies": {
+    "@types/three": "^0.187.0",
+    "playwright": "^1.65.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.7"
+  }
+}

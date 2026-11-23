@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LiDAR HD Viewer — nuages de points 3D (IGN)</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <canvas id="scene"></canvas>
+
+    <header id="topbar">
+      <div id="brand">
+        <span class="dot"></span>
+        <strong>LiDAR HD Viewer</strong>
+        <span class="sub">v1</span>
+      </div>
+      <button id="btn-open" class="btn" type="button">Ouvrir un fichier</button>
+      <input id="file-input" type="file" accept=".las,.laz,.copc.laz" hidden />
+      <button id="btn-panel" class="btn" type="button" aria-pressed="true">Filtres</button>
+    </header>
+
+    <aside id="panel" hidden>
+      <section class="group">
+        <h2>Données</h2>
+        <div id="file-info" class="muted">Aucun fichier chargé</div>
+        <div class="row">
+          <input id="url-input" type="text" placeholder="URL directe d'un .laz / .copc.laz…" />
+          <button id="btn-url" class="btn small" type="button">Charger</button>
+        </div>
+      </section>
+
+      <section class="group">
+        <h2>Couleurs</h2>
+        <div class="row">
+          <label class="lbl" for="color-mode">Mode</label>
+          <select id="color-mode">
+            <option value="classification" selected>Classification</option>
+            <option value="elevation">Altitude</option>
+            <option value="intensity">Intensité</option>
+            <option value="uniform">Uniforme</option>
+          </select>
+        </div>
+        <div class="row" id="row-color" hidden>
+          <label class="lbl" for="uniform-color">Couleur</label>
+          <input id="uniform-color" type="color" value="#8fd4ff" />
+        </div>
+        <div class="row" id="row-intensity" hidden>
+          <label class="lbl" for="intensity-gain">Gain</label>
+          <input id="intensity-gain" type="range" min="1" max="100" value="12" />
+        </div>
+      </section>
+
+      <section class="group">
+        <h2>Classes LAS</h2>
+        <div class="row btn-row">
+          <button id="btn-all" class="btn small" type="button">Tout</button>
+          <button id="btn-none" class="btn small" type="button">Aucun</button>
+          <button id="btn-sol" class="btn small" type="button">Sol seul</button>
+      </div>
+        <div id="class-list"></div>
+      </section>
+
+      <section class="group">
+        <h2>Altitude (m, Z absolu)</h2>
+        <div class="row">
+          <label class="lbl" for="elev-min">Min</label>
+          <input id="elev-min" type="range" min="0" max="100" value="0" />
+          <output id="elev-min-val">—</output>
+        </div>
+        <div class="row">
+          <label class="lbl" for="elev-max">Max</label>
+          <input id="elev-max" type="range" min="0" max="100" value="100" />
+          <output id="elev-max-val">—</output>
+        </div>
+      </section>
+
+      <section class="group">
+        <h2>Affichage</h2>
+        <div class="row">
+          <label class="lbl" for="point-size">Taille</label>
+          <input id="point-size" type="range" min="1" max="8" step="0.5" value="2" />
+        </div>
+        <div class="row">
+          <label class="lbl" for="stride">Densité</label>
+          <input id="stride" type="range" min="1" max="20" value="1" />
+          <output id="stride-val">1/1</output>
+        </div>
+        <div class="row btn-row">
+          <button id="btn-3d" class="btn small" type="button">Vue 3D</button>
+          <button id="btn-top" class="btn small" type="button">Vue de dessus</button>
+          <button id="btn-fit" class="btn small" type="button">Recadrer</button>
+        </div>
+      </section>
+    </aside>
+
+    <div id="drop-overlay">
+      <div class="drop-card">
+        <h1>Glissez un nuage de points</h1>
+        <p>
+          Formats : <code>.las</code>, <code>.laz</code>, <code>.copc.laz</code><br />
+          Données IGN <a href="https://geoservices.ign.fr/lidarhd" target="_blank" rel="noreferrer">LiDAR HD</a>,
+          licence Etalab 2.0 — ou n'importe quel LAS/LAZ.
+        </p>
+        <p class="muted">
+          Astuce : les dalles IGN téléchargées en archive <code>.7z</code>
+          doivent être extraites avant l'import.
+        </p>
+        <button id="btn-open-hero" class="btn" type="button">Choisir un fichier…</button>
+      </div>
+    </div>
+
+    <div id="loading" hidden>
+      <div class="spinner"></div>
+      <div id="loading-text">Chargement…</div>
+    </div>
+
+    <footer id="statusbar">
+      <span id="status">Prêt</span>
+      <span id="stats"></span>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
